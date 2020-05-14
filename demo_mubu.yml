@@ -277,6 +277,8 @@ teststeps:
             document_id: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/user/current_level
+    extract:
+        userId: content.data.id
     validate:
     -   eq:
         - status_code
@@ -460,7 +462,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:3
+            Request-Id: MESSAGE:${userId}:${memberId}:3
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -494,7 +496,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 3
-            requestId: MESSAGE:3878131:${memberId}:3
+            requestId: MESSAGE:${userId}:${memberId}:3
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -517,7 +519,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:5
+            Request-Id: MESSAGE:${userId}:${memberId}:5
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -548,7 +550,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 5
-            requestId: MESSAGE:3878131:${memberId}:5
+            requestId: MESSAGE:${userId}:${memberId}:5
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -571,7 +573,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:7
+            Request-Id: MESSAGE:${userId}:${memberId}:7
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -602,7 +604,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 7
-            requestId: MESSAGE:3878131:${memberId}:7
+            requestId: MESSAGE:${userId}:${memberId}:7
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -625,7 +627,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:9
+            Request-Id: MESSAGE:${userId}:${memberId}:9
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -653,7 +655,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 9
-            requestId: MESSAGE:3878131:${memberId}:9
+            requestId: MESSAGE:${userId}:${memberId}:9
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -676,7 +678,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:11
+            Request-Id: MESSAGE:${userId}:${memberId}:11
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -713,7 +715,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 11
-            requestId: MESSAGE:3878131:${memberId}:11
+            requestId: MESSAGE:${userId}:${memberId}:11
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -736,7 +738,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:13
+            Request-Id: MESSAGE:${userId}:${memberId}:13
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -774,7 +776,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 13
-            requestId: MESSAGE:3878131:${memberId}:13
+            requestId: MESSAGE:${userId}:${memberId}:13
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -797,7 +799,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:14
+            Request-Id: MESSAGE:${userId}:${memberId}:14
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -834,7 +836,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 14
-            requestId: MESSAGE:3878131:${memberId}:14
+            requestId: MESSAGE:${userId}:${memberId}:14
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -857,7 +859,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:16
+            Request-Id: MESSAGE:${userId}:${memberId}:16
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -907,7 +909,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 16
-            requestId: MESSAGE:3878131:${memberId}:16
+            requestId: MESSAGE:${userId}:${memberId}:16
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -930,7 +932,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:18
+            Request-Id: MESSAGE:${userId}:${memberId}:18
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -968,7 +970,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 18
-            requestId: MESSAGE:3878131:${memberId}:18
+            requestId: MESSAGE:${userId}:${memberId}:18
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
@@ -991,7 +993,7 @@ teststeps:
             Content-Type: application/json;charset=UTF-8
             Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
             Member-Id: '${memberId}'
-            Request-Id: MESSAGE:3878131:${memberId}:19
+            Request-Id: MESSAGE:${userId}:${memberId}:19
             Sec-Fetch-Dest: empty
             Sec-Fetch-Mode: cors
             Sec-Fetch-Site: same-site
@@ -1041,7 +1043,7 @@ teststeps:
             engineType: MUBU
             messageType: BROADCAST
             reqId: 19
-            requestId: MESSAGE:3878131:${memberId}:19
+            requestId: MESSAGE:${userId}:${memberId}:19
             token: ${documentId}
         method: POST
         url: https://api2.mubu.com/v3/api/colla/message
