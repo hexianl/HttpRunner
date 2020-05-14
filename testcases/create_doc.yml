@@ -1,0 +1,233 @@
+config:
+    name: testcase create the new document
+    variables: {}
+    verify: False
+    export:
+        - memberId
+        - documentId
+        - userId
+
+teststeps:
+-   name: login the mubu by Sam
+    testcase: testcases/login.yml
+
+-   name: /api/list/create_doc
+    request:
+        data:
+            folderId: '0'
+            type: '0'
+        headers:
+            Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-origin
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            X-Requested-With: XMLHttpRequest
+        method: POST
+        url: https://mubu.com/api/list/create_doc
+    extract:
+        documentId: content.data.id
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=UTF-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - null
+-   name: /doc${documentId}
+    request:
+        headers:
+            Sec-Fetch-Dest: document
+            Sec-Fetch-Mode: navigate
+            Sec-Fetch-Site: same-origin
+            Sec-Fetch-User: ?1
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+        method: GET
+        url: https://mubu.com/doc${documentId}
+    extract:
+        memberId: "memberId: '(.*)'"
+    validate:
+    -   eq:
+        - status_code
+        - 200
+-   name: /v3/api/document/get
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: c113cf8c-57d9-45ca-9a78-20645fee6571
+        json:
+            docId: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/document/get
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - Success
+-   name: /v3/api/user/current_level
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 07cebe8c-dbf0-42de-9ffe-0643507c6dec
+        json:
+            document_id: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/user/current_level
+    extract:
+        userId: content.data.id
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - OK
+-   name: /v3/api/user/current_user
+    request:
+        data: ''
+        headers:
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: eb2a5b42-bfc2-4725-ade0-22b5eba51fcd
+        method: POST
+        url: https://api2.mubu.com/v3/api/user/current_user
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/user/get_invite_count
+    request:
+        headers:
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 41ddb6c2-d509-4ae9-bbbb-09f8bf0d1ce8
+        method: GET
+        url: https://api2.mubu.com/v3/api/user/get_invite_count
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - null
+-   name: /v3/api/colla/register
+    request:
+        headers:
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: fa1fc8d0-bb0e-4ff0-a2e9-6453dd8857cf
+        method: GET
+        url: https://api2.mubu.com/v3/api/colla/register
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - Success
+-   name: /v3/api/user/get_user_params
+    request:
+        data: ''
+        headers:
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 2194a9dd-ab10-4988-9fff-102be49e7e8b
+        method: POST
+        url: https://api2.mubu.com/v3/api/user/get_user_params
+
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
