@@ -1,0 +1,798 @@
+config:
+    name: testcase change the document title
+    variables: {}
+    verify: False
+teststeps:
+-   name: Create the mubu by Sam
+    testcase: testcases/create_doc.yml
+    extract:
+        - memberId
+        - documentId
+        - userId
+
+-   name: /v3/api/colla/members
+    request:
+        headers:
+            Access-Control-Request-Headers: data-unique-id,jwt-token,request-id,token,x-request-id
+            Access-Control-Request-Method: GET
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+        method: OPTIONS
+        params:
+            documentId: ${documentId}
+            memberId: '${memberId}'
+        url: https://api2.mubu.com/v3/api/colla/members
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - text/plain; charset=utf-8
+-   name: /v3/api/colla/members
+    request:
+        headers:
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Request-Id: members:${memberId}:1589290582903
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 4c7593b0-6e21-4441-935b-2024c4262ebf
+        method: GET
+        params:
+            documentId: ${documentId}
+            memberId: '${memberId}'
+        url: https://api2.mubu.com/v3/api/colla/members
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:3
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 214fe0ef-1ea4-4343-987b-c7eb6ab1c55f
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   name: nameChanged
+                        original: ''
+                        title: t
+                    -   name: nameChanged
+                        original: t
+                        title: te
+                    -   name: nameChanged
+                        original: te
+                        title: tes
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 0
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 3
+            requestId: MESSAGE:${userId}:${memberId}:3
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:5
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 9d56f4f2-c568-4873-86d0-db43d88f9dea
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   name: nameChanged
+                        original: tes
+                        title: test
+                    -   name: nameChanged
+                        original: test
+                        title: test1
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 1
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 5
+            requestId: MESSAGE:${userId}:${memberId}:5
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:7
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 20af653c-f59e-42f3-91e1-c803553970fc
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   name: nameChanged
+                        original: test1
+                        title: test12
+                    -   name: nameChanged
+                        original: test12
+                        title: test123
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 2
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 7
+            requestId: MESSAGE:${userId}:${memberId}:7
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:9
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 015485cc-4a8d-4d14-a7a2-3ce596ac6dc0
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   name: nameChanged
+                        original: test123
+                        title: test1233
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 3
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 9
+            requestId: MESSAGE:${userId}:${memberId}:9
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:11
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 85f8c33c-1346-42b5-b37e-121d5e2f55e8
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   created:
+                        -   index: 0
+                            node:
+                                children: []
+                                id: 413914c2cb032cb548f03ecd6e50b4e7
+                                modified: 1589290587065
+                                text: ''
+                            parentId: null
+                            path:
+                            - nodes
+                            - 0
+                        name: create
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 4
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 11
+            requestId: MESSAGE:${userId}:${memberId}:11
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:13
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 88397772-1459-4493-96d1-e17977add66c
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   name: update
+                        updated:
+                        -   original:
+                                id: 413914c2cb032cb548f03ecd6e50b4e7
+                                modified: 1589290587065
+                                text: ''
+                            path:
+                            - nodes
+                            - 0
+                            updated:
+                                id: 413914c2cb032cb548f03ecd6e50b4e7
+                                modified: 1589290587494
+                                text: <span>1</span>
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 5
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 13
+            requestId: MESSAGE:${userId}:${memberId}:13
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:14
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 3a82a410-aa51-48ad-a495-72b4703aa6ef
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   created:
+                        -   index: 1
+                            node:
+                                children: []
+                                id: 91558446da6d6fe2e586d33a2f260154
+                                modified: 1589290588410
+                                text: ''
+                            parentId: null
+                            path:
+                            - nodes
+                            - 1
+                        name: create
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 6
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 14
+            requestId: MESSAGE:${userId}:${memberId}:14
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:16
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 79e229dd-342d-4797-8a50-a47feec5cf95
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   name: update
+                        updated:
+                        -   original:
+                                id: 91558446da6d6fe2e586d33a2f260154
+                                modified: 1589290588410
+                                text: ''
+                            path:
+                            - nodes
+                            - 1
+                            updated:
+                                id: 91558446da6d6fe2e586d33a2f260154
+                                modified: 1589290588816
+                                text: <span>2</span>
+                    -   created:
+                        -   index: 2
+                            node:
+                                children: []
+                                id: fb9d5dbbd4d0f8075423f345e84351f5
+                                modified: 1589290589089
+                                text: ''
+                            parentId: null
+                            path:
+                            - nodes
+                            - 2
+                        name: create
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 7
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 16
+            requestId: MESSAGE:${userId}:${memberId}:16
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:18
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 0e5751ed-8e1f-4986-adcd-1fed557cebbc
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   name: update
+                        updated:
+                        -   original:
+                                id: fb9d5dbbd4d0f8075423f345e84351f5
+                                modified: 1589290589089
+                                text: ''
+                            path:
+                            - nodes
+                            - 2
+                            updated:
+                                id: fb9d5dbbd4d0f8075423f345e84351f5
+                                modified: 1589290589383
+                                text: <span>3</span>
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 8
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 18
+            requestId: MESSAGE:${userId}:${memberId}:18
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/colla/message
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Member-Id: '${memberId}'
+            Request-Id: MESSAGE:${userId}:${memberId}:19
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 5b4ec990-cdc0-4a4e-b421-27f841abc396
+        json:
+            context:
+                appVersion: 1.0.0.541
+                os: Windows
+                osVersion: NT 10.0
+                platform: web
+            data:
+                message:
+                    content:
+                    -   created:
+                        -   index: 3
+                            node:
+                                children: []
+                                id: c7d8e5351aa39fdc2662f511e0a69e78
+                                modified: 1589290590681
+                                text: ''
+                            parentId: null
+                            path:
+                            - nodes
+                            - 3
+                        name: create
+                    -   name: update
+                        updated:
+                        -   original:
+                                id: c7d8e5351aa39fdc2662f511e0a69e78
+                                modified: 1589290590681
+                                text: ''
+                            path:
+                            - nodes
+                            - 3
+                            updated:
+                                id: c7d8e5351aa39fdc2662f511e0a69e78
+                                modified: 1589290591152
+                                text: <span>4</span>
+                    documentId: ${documentId}
+                    type: CHANGE
+                    version: 9
+                    viewType: OUTLINE
+            engineType: MUBU
+            messageType: BROADCAST
+            reqId: 19
+            requestId: MESSAGE:${userId}:${memberId}:19
+            token: ${documentId}
+        method: POST
+        url: https://api2.mubu.com/v3/api/colla/message
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - success
+-   name: /v3/api/document/get_recent_list
+    request:
+        headers:
+            Content-Type: application/json;charset=UTF-8
+            Jwt-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-site
+            Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzODc4MTMxIiwiZXhwIjoxNTkxODgyNTc3LCJpYXQiOjE1ODkyOTA1Nzd9.Ee_Qpu2XpW_WKIJQwJU_eOJNM6AEI8J8tk6ZLMRkhug2ndPM-TfVOzEMdxGz9Fw9HrqY-2YLz9PJhenlTLeHlA
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            data-unique-id: 99b6f490-9337-11ea-b327-9db2e173550e
+            x-request-id: 7bcedb7b-9e4a-4e90-ac0c-d8d7105eb455
+        json:
+            documentId: ${documentId}
+            keywords: ''
+        method: POST
+        url: https://api2.mubu.com/v3/api/document/get_recent_list
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=utf-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - null
+-   name: /list
+    request:
+        headers:
+            Sec-Fetch-Dest: document
+            Sec-Fetch-Mode: navigate
+            Sec-Fetch-Site: same-origin
+            Sec-Fetch-User: ?1
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+        method: GET
+        url: https://mubu.com/list
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - text/html;charset=UTF-8
+-   name: /api/list/tip_new_update
+    request:
+        data: ''
+        headers:
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-origin
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            X-Requested-With: XMLHttpRequest
+        method: POST
+        url: https://mubu.com/api/list/tip_new_update
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=UTF-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - null
+-   name: /api/list/get
+    request:
+        data:
+            folderId: '0'
+            keywords: ''
+            sort: time
+            source: ''
+        headers:
+            Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-origin
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            X-Requested-With: XMLHttpRequest
+        method: POST
+        url: https://mubu.com/api/list/get
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=UTF-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - null
+-   name: /api/message/get_message_unread
+    request:
+        data: ''
+        headers:
+            Sec-Fetch-Dest: empty
+            Sec-Fetch-Mode: cors
+            Sec-Fetch-Site: same-origin
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36
+                (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
+            X-Requested-With: XMLHttpRequest
+        method: POST
+        url: https://mubu.com/api/message/get_message_unread
+    validate:
+    -   eq:
+        - status_code
+        - 200
+    -   eq:
+        - headers.Content-Type
+        - application/json;charset=UTF-8
+    -   eq:
+        - content.code
+        - 0
+    -   eq:
+        - content.msg
+        - null
