@@ -14,6 +14,8 @@ teststeps:
                 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
         method: GET
         url: https://mubu.com/
+    teardown_hooks:
+        - ${sleep(5)}
     validate:
     -   eq:
         - status_code

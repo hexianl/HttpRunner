@@ -1,14 +1,20 @@
 config:
     name: testcase change the document title
-    variables: {}
+    variables: 
+        documentId: 28nRA1U6DVz
+        memberId: "1576021112575"
+        userId: "3878131"
+        new_title: "New_title_Sam"
     verify: False
 teststeps:
--   name: Create the mubu by Sam
-    testcase: testcases/create_doc.yml
-    extract:
-        - memberId
-        - documentId
-        - userId
+-   name: login the mubu
+    testcase: testcases/login.yml
+# -   name: Create the mubu by Sam
+#     testcase: testcases/create_doc.yml
+#     extract:
+#         - memberId
+#         - documentId
+#         - userId
 
 -   name: /v3/api/colla/members
     request:
@@ -254,7 +260,7 @@ teststeps:
                     content:
                     -   name: nameChanged
                         original: test123
-                        title: test1233
+                        title: ${new_title}
                     documentId: ${documentId}
                     type: CHANGE
                     version: 3
@@ -279,6 +285,7 @@ teststeps:
     -   eq:
         - content.msg
         - success
+
 -   name: /v3/api/colla/message
     request:
         headers:
