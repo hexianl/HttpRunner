@@ -52,6 +52,8 @@ teststeps:
                 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36
         method: GET
         url: https://mubu.com/doc${documentId}
+    setup_hooks:
+        - ${print_parameter($documentId)}
     extract:
         memberId: "memberId: '(.*)'"
     validate:
@@ -202,7 +204,6 @@ teststeps:
     -   eq:
         - content.msg
         - Success
-    -   eq: [content.data.ticket,32]
 -   name: /v3/api/user/get_user_params
     request:
         data: ''

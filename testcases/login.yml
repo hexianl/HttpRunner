@@ -1,6 +1,8 @@
 config:
     name: testcase login the mubu
-    variables: {}
+    variables: 
+        password: ${ENV(PASSWORD)}
+        phone: ${ENV(USERNAME)}
     verify: False
 teststeps:
 -   name: /
@@ -62,8 +64,8 @@ teststeps:
 -   name: /api/login/submit
     request:
         data:
-            password: x123456
-            phone: '13135676233'
+            password: ${password}
+            phone: ${phone}
         headers:
             Content-Type: application/x-www-form-urlencoded; charset=UTF-8
             Sec-Fetch-Dest: empty

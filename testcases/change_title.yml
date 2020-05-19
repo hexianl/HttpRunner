@@ -4,7 +4,7 @@ config:
         documentId: 28nRA1U6DVz
         memberId: "1576021112575"
         userId: "3878131"
-        new_title: "New_title_Sam"
+        new_title: "New_title_Sam${get_timestamp()}"
     verify: False
 teststeps:
 -   name: login the mubu
